@@ -28,15 +28,15 @@ After installing Pod dependencies, open the file `GoogleBooks.xcworkspace` on Xc
 - [ ] The project should not crash. I shouldn’t get stuck somewhere (the flow should always work).
 - [ ] Unit test bundle and unit test UI are required (not 100% is required).
 - [x] Use at least 2 CocoaPods.
-- [ ] Use MVVM architecture design.
+- [x] Use MVVM architecture design.
 - [ ] Each book always shows the correct associated image. 
 - [ ] Utilize Core Data to persist favorited books
 - One of the following (Bonus):
 	- [ ] Create a screen within the app to accredit the CocoaPods used.
 	- [ ] Some indicator on both the search list and/or grid and the favorites section, indicating that a book is favorited.
-	- [ ] Enable the user to search as they type into the search bar without pressing any search button.
+	- [x] Enable the user to search as they type into the search bar without pressing any search button.
 	- [ ] Ensure that each book always has the correct image associated to it.
-	- [ ] Enable pagination.
+	- [x] Enable pagination.
 	- [ ] Some other non-trivial feature.
 
 [CocoaPods]: https://cocoapods.org/
