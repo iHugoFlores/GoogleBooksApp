@@ -32,6 +32,16 @@ class BooksTableController: UIViewController {
         title = "My Books App"
         setUpSearchBar()
         setUpTableView()
+
+        viewModel.onDataReload = {
+            print("Reloading table")
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+
+        viewModel.query = "Flower"
+        viewModel.searchNewQuery()
     }
 
     func setUpSearchBar() {
@@ -46,6 +56,9 @@ class BooksTableController: UIViewController {
     }
 
     func setUpTableView() {
+        tableView.dataSource = viewModel
+        tableView.register(BooksTableCell.self, forCellReuseIdentifier: BooksTableCell.identifier)
+
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -59,11 +72,11 @@ class BooksTableController: UIViewController {
 extension BooksTableController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.query = searchText
+        viewModel.searchNewQuery()
+        spinnerView.showSpinner(in: tableView)
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.searchNewQuery()
-        spinnerView.showSpinner(in: view)
         searchBar.endEditing(true)
     }
 }
