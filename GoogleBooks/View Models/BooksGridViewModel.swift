@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BooksTableViewModel: NSObject {
+class BooksGridViewModel: NSObject {
     var lastPage = 0
 
     var volumes: [Volume] = [] {
@@ -40,19 +40,6 @@ class BooksTableViewModel: NSObject {
             self.nextPageFetchLock = true
         }
     }
-}
-
-extension BooksTableViewModel: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return volumes.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: BooksTableCell.identifier, for: indexPath)
-        cell.textLabel?.text = "Test \(indexPath.row)"
-        reloadNextPageOnIndexPathThreshold(indexPath, threshold: 7 * volumes.count / 8)
-        return cell
-    }
 
     func reloadNextPageOnIndexPathThreshold(_ indexPath: IndexPath, threshold: Int) {
         if indexPath.row >= threshold && nextPageFetchLock {
@@ -60,5 +47,21 @@ extension BooksTableViewModel: UITableViewDataSource {
             lastPage += 1
             fetchNextPage()
         }
+    }
+}
+
+extension BooksGridViewModel: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return volumes.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookCollectionCell.identifier, for: indexPath) as? BookCollectionCell
+
+        cell?.row = indexPath.row
+        cell?.viewModel.model = volumes[indexPath.row]
+        reloadNextPageOnIndexPathThreshold(indexPath, threshold: volumes.count - 4)
+
+        return cell ?? UICollectionViewCell()
     }
 }
