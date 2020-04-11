@@ -72,6 +72,15 @@ opt_in_rules:
   - xct_specific_matcher
   - yoda_condition
 
+line_length:
+  warning: 250
+  error: 400
+  ignores_comments: true
+  ignores_urls: true
+  ignores_function_declarations: true
+  ### works up until this config rule
+  ignores_interpolated_strings: true
+
 identifier_name:
   excluded:
     - id
