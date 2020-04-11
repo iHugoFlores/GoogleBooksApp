@@ -8,4 +8,7 @@
 import Foundation
 
 class BookDetailsViewModel {
+    var model: Volume?
+
+    var onModelSet: (() -> Void)?
 }
