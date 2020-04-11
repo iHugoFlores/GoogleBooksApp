@@ -19,17 +19,17 @@
                     </view>
                     <navigationItem key="navigationItem" id="8ke-PI-7EZ"/>
                     <connections>
-                        <segue destination="m9N-sl-ZZ7" kind="show" id="WRj-SC-LLe"/>
+                        <segue destination="m9N-sl-ZZ7" kind="show" identifier="toBookDetails" id="WRj-SC-LLe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="942" y="138"/>
         </scene>
-        <!--View Controller-->
+        <!--Book Details Controller-->
         <scene sceneID="s53-Yf-NvS">
             <objects>
-                <viewController id="m9N-sl-ZZ7" sceneMemberID="viewController">
+                <viewController id="m9N-sl-ZZ7" customClass="BookDetailsController" customModule="GoogleBooks" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="y6m-oz-pdN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
