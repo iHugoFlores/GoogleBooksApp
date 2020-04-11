@@ -74,11 +74,26 @@ extension BooksGridController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.query = searchText
         viewModel.searchNewQuery()
-        //spinnerView.showSpinner(in: tableView)
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+    }
+}
+
+extension BooksGridController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: BookDetailsController.segueIdentifier, sender: indexPath)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard
+            let indexPath = sender as? IndexPath,
+            let cell = collectionView.cellForItem(at: indexPath) as? BookCollectionCell
+        else { return }
+        let viewController = segue.destination as? BookDetailsController
+        viewController?.viewModel.model = viewModel.volumes[indexPath.row]
+        viewController?.bookImage.image = cell.bookImage.image
     }
 }
 
