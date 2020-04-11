@@ -1,20 +1,33 @@
 # Week 4 Project - Google Books App
 
-Book searcher and reader using the Google Books API
+Book searcher and reader iOS App using the Google Books API
+
+## Build The Project
+
+1. Clone or download the project
+2. The project uses [CocoaPods]. Make sure you have it installed to install the dependencies.
+3. Inside the project, execute:
+```bash
+pods install
+```
+
+## Run The Project
+
+After installing Pod dependencies, open the file `GoogleBooks.xcworkspace` on Xcode
 
 ## Requirements
 
-- [ ] Inputs. Give the user a search box to enter the book to be searched (tableView screen)
+- [x] Inputs. Give the user a search box to enter the book to be searched (tableView screen)
 - [ ] Outputs. Make a visual grid of books with at least thumbnail, title, and author(s) displayed. Feel free to add addition meta data and information. 
 - [ ] The user must be able to save his or her favorite books by double tapping a collection view cell – the favorites must also be shown in a grid.
 - [ ] There must be a way to switch between “search mode” and “favorites mode”. 
-- [ ] You can use third party and open source libraries (within reason).
+- [x] You can use third party and open source libraries (within reason).
 - [ ] Zip up the source and send it back to your trainer. Also, upload your code to Github (make an effort on the Readme file).
 - [ ] The project must be simple to build. 
 - [ ] The project must run on our side.
 - [ ] The project should not crash. I shouldn’t get stuck somewhere (the flow should always work).
 - [ ] Unit test bundle and unit test UI are required (not 100% is required).
-- [ ] Use at least 2 CocoaPods.
+- [x] Use at least 2 CocoaPods.
 - [ ] Use MVVM architecture design.
 - [ ] Each book always shows the correct associated image. 
 - [ ] Utilize Core Data to persist favorited books
@@ -26,6 +39,4 @@ Book searcher and reader using the Google Books API
 	- [ ] Enable pagination.
 	- [ ] Some other non-trivial feature.
 
-## Build The Project
-
-## Run The Project
+[CocoaPods]: https://cocoapods.org/
