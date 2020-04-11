@@ -8,8 +8,14 @@
 import Alamofire
 
 class GoogleBooksAPI {
+    private enum GoogleBooksAPIError: Error {
+        case JSONParse
+    }
+
     private static let pageSize: Int = 20
-    
+
+    typealias ServiceResponse = (VolumesQueryResponse?, Error?) -> Void
+
     private static let endpoint: URL = {
         var urlC = URLComponents()
         urlC.scheme = "https"
@@ -17,7 +23,7 @@ class GoogleBooksAPI {
         urlC.path = "/books/v1/volumes"
         return urlC.url!
     }()
-    
+
     private static func getQueryItemsForQueryAndPage(query: String, page: Int) -> [URLQueryItem] {
         return [
             URLQueryItem(name: "q", value: query),
@@ -26,11 +32,20 @@ class GoogleBooksAPI {
         ]
     }
 
-    static func getNextPageWithQuery(query: String, page: Int) {
+    static func getNextPageWithQuery(query: String, page: Int, onDone: @escaping ServiceResponse) {
         var urlC = URLComponents(url: endpoint, resolvingAgainstBaseURL: true)
         urlC?.queryItems = getQueryItemsForQueryAndPage(query: query, page: page)
-        AF.request(urlC!.url!).responseJSON { data in
-            print("Call ended. Data: \(data)")
+        AF.request(urlC!.url!).validate(statusCode: 200..<300).responseData { response in
+            switch response.result {
+            case let .success(data):
+                guard let responseData: VolumesQueryResponse? = JSONUtil.parseDataToModel(from: data) else {
+                    onDone(nil, GoogleBooksAPIError.JSONParse)
+                    return
+                }
+                onDone(responseData, nil)
+            case let .failure(error):
+                onDone(nil, error)
+            }
         }
     }
 }
