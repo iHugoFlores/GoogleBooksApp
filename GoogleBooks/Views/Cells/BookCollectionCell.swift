@@ -51,7 +51,7 @@ class BookCollectionCell: UICollectionViewCell {
         super.init(frame: frame)
         setUpView()
         viewModel.onModelSet = {
-            self.titleLabel.text = "\(String(describing: self.row!)) \(String(describing: self.viewModel.model!.volumeInfo.title))"
+            self.titleLabel.text = self.viewModel.model!.volumeInfo.title
             self.authorLabel.text = self.viewModel.model?.volumeInfo.authors?.joined(separator: ", ")
         }
         viewModel.onImageSet = {
