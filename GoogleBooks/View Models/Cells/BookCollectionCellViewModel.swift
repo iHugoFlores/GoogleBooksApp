@@ -29,13 +29,21 @@ class BookCollectionCellViewModel {
 
     func downloadBookThumbnail() {
         guard let imageUrl = model?.volumeInfo.imageLinks?.thumbnail else {
-            self.image = UIImage(systemName: "photo")
+            self.image = UIImage(systemName: "book.fill")
             return
         }
-        GoogleBooksAPI.downloadVolumeThumbnail(url: imageUrl) { imgData, error in
+        GoogleBooksAPI.downloadVolumeThumbnail(url: imageUrl) { imgData, _ in
             if let data = imgData {
                 self.image = UIImage(data: data)
             }
         }
+    }
+
+    func isFavorite() -> Bool {
+        return model?.favorited ?? false
+    }
+
+    func onBookFavorited(indexPath: IndexPath) {
+        NotificationCenter.default.post(name: BookCollectionCell.favoriteABookNotificationId, object: self, userInfo: ["indexPath": indexPath])
     }
 }
