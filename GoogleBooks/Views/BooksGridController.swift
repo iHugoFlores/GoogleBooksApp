@@ -103,11 +103,19 @@ class BooksGridController: UIViewController {
         }
         viewModel.onViewModeChanged = {
             self.navigationItem.rightBarButtonItem?.title = self.viewModel.navbarRightButtonText
-            self.searchBar.isHidden = !self.viewModel.showQueryBooks
+            if self.viewModel.showQueryBooks {
+                print("Here")
+                self.setUpSearchBar()
+                self.collectionView.removeFromSuperview()
+                self.setUpCollectionView()
+                return
+            }
+            self.searchBar.removeFromSuperview()
+            NSLayoutConstraint.activate([
+                self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor)
+            ])
         }
         viewModel.setUpNotifications()
-        //viewModel.query = "Flowertttg"
-        //viewModel.searchNewQuery()
     }
 }
 
