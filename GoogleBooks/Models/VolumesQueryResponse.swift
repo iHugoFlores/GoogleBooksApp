@@ -10,5 +10,5 @@ import Foundation
 struct VolumesQueryResponse: Codable {
     let kind: String
     let totalItems: Int
-    let items: [Volume]
+    let items: [Volume]?
 }
