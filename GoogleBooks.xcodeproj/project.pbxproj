@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8BAC644A05D44A6198EFEE2B /* Pods_GoogleBooks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC2B30F4CB7DB7F2FD6D6AE /* Pods_GoogleBooks.framework */; };
+		F061879A24433BC400E1A819 /* GoogleBooks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F061879824433BC400E1A819 /* GoogleBooks.xcdatamodeld */; };
+		F06187A12443419800E1A819 /* VolumeCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061879F2443419800E1A819 /* VolumeCD+CoreDataClass.swift */; };
+		F06187A22443419800E1A819 /* VolumeCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06187A02443419800E1A819 /* VolumeCD+CoreDataProperties.swift */; };
 		F06B6EBE244205F500DD6C4E /* JSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06B6EBD244205F500DD6C4E /* JSONUtil.swift */; };
 		F06B6EC12442113900DD6C4E /* BookCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06B6EC02442113900DD6C4E /* BookCollectionCell.swift */; };
 		F06B6EC424422FE800DD6C4E /* BookCollectionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06B6EC324422FE800DD6C4E /* BookCollectionCellViewModel.swift */; };
@@ -29,6 +32,9 @@
 /* Begin PBXFileReference section */
 		53E9F75375B1663EF9731F5F /* Pods-GoogleBooks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoogleBooks.release.xcconfig"; path = "Target Support Files/Pods-GoogleBooks/Pods-GoogleBooks.release.xcconfig"; sourceTree = "<group>"; };
 		7EC2B30F4CB7DB7F2FD6D6AE /* Pods_GoogleBooks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoogleBooks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F061879924433BC400E1A819 /* GoogleBooks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoogleBooks.xcdatamodel; sourceTree = "<group>"; };
+		F061879F2443419800E1A819 /* VolumeCD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VolumeCD+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F06187A02443419800E1A819 /* VolumeCD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VolumeCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F06B6EBD244205F500DD6C4E /* JSONUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtil.swift; sourceTree = "<group>"; };
 		F06B6EC02442113900DD6C4E /* BookCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionCell.swift; sourceTree = "<group>"; };
 		F06B6EC324422FE800DD6C4E /* BookCollectionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionCellViewModel.swift; sourceTree = "<group>"; };
@@ -140,8 +146,11 @@
 		F0AA5C1A2440E65600E35463 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F061879F2443419800E1A819 /* VolumeCD+CoreDataClass.swift */,
+				F06187A02443419800E1A819 /* VolumeCD+CoreDataProperties.swift */,
 				F0A059F92441389C00AFC11F /* Volume.swift */,
 				F0A059FB244138B900AFC11F /* VolumesQueryResponse.swift */,
+				F061879824433BC400E1A819 /* GoogleBooks.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -328,8 +337,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0A059F524412AEC00AFC11F /* BooksGridViewModel.swift in Sources */,
+				F06187A12443419800E1A819 /* VolumeCD+CoreDataClass.swift in Sources */,
+				F06187A22443419800E1A819 /* VolumeCD+CoreDataProperties.swift in Sources */,
 				F0A059F724412C4C00AFC11F /* BookDetailsViewModel.swift in Sources */,
 				F0A059F32441263E00AFC11F /* BookDetailsController.swift in Sources */,
+				F061879A24433BC400E1A819 /* GoogleBooks.xcdatamodeld in Sources */,
 				F0AA5C222440E8F500E35463 /* GoogleBooksAPI.swift in Sources */,
 				F0874A102440DBC60013670D /* AppDelegate.swift in Sources */,
 				F0874A122440DBC60013670D /* SceneDelegate.swift in Sources */,
@@ -537,6 +549,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F061879824433BC400E1A819 /* GoogleBooks.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F061879924433BC400E1A819 /* GoogleBooks.xcdatamodel */,
+			);
+			currentVersion = F061879924433BC400E1A819 /* GoogleBooks.xcdatamodel */;
+			path = GoogleBooks.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F0874A042440DBC60013670D /* Project object */;
 }
