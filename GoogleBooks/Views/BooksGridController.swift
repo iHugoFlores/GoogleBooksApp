@@ -37,6 +37,11 @@ class BooksGridController: UIViewController {
         setUpNavBar()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+        viewModel.retrieveFavorites()
+    }
+
     func setUpSearchBar() {
         searchBar.delegate = self
 

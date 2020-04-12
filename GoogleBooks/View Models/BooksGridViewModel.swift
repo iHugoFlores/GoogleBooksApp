@@ -38,6 +38,23 @@ class BooksGridViewModel: NSObject {
     var nextPageFetchLock = true
     var fetchNewDataLock = false
 
+    private weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private let context = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+
+    func retrieveFavorites() {
+        do {
+            let stored: [VolumeCD] = try context.fetch(VolumeCD.fetchRequest())
+            favorites = Set(stored.map { element in
+                let imageLinks = element.thumbnail != nil
+                    ? ImageLinks(smallThumbnail: element.thumbnail!, thumbnail: element.thumbnail!)
+                    : nil
+                return Volume(id: element.id!, kind: nil, etag: nil, selfLink: nil, volumeInfo: VolumeInfo(title: element.title!, authors: element.authors as? [String], publisher: nil, publishedDate: nil, description: nil, industryIdentifiers: nil, readingModes: nil, pageCount: nil, printType: nil, maturityRating: nil, allowAnonLogging: nil, contentVersion: nil, panelizationSummary: nil, imageLinks: imageLinks, language: nil, previewLink: nil, infoLink: nil, canonicalVolumeLink: nil, subtitle: nil, categories: nil), saleInfo: nil, accessInfo: nil, searchInfo: nil, favorited: element.favorited)
+            })
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+
     func searchNewQuery() {
         fetchNewDataLock = true
         GoogleBooksAPI.getNextPageWithQuery(query: query, page: 0) { data, _  in
@@ -75,6 +92,14 @@ class BooksGridViewModel: NSObject {
         favorites.insert(volumes[indexPath.row])
         guard let onSingleRowReload = onSingleRowReload else { return }
         onSingleRowReload(indexPath)
+
+        let book = VolumeCD(entity: VolumeCD.entity(), insertInto: context)
+        book.id = volumes[indexPath.row].id
+        book.authors = volumes[indexPath.row].volumeInfo.authors as NSObject?
+        book.favorited = true
+        book.title = volumes[indexPath.row].volumeInfo.title
+        book.thumbnail = volumes[indexPath.row].volumeInfo.imageLinks?.thumbnail
+        appDelegate!.saveContext()
     }
 
     @objc
