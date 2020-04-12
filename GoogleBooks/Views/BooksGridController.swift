@@ -33,15 +33,8 @@ class BooksGridController: UIViewController {
         title = "My Books App"
         setUpSearchBar()
         setUpCollectionView()
-
-        viewModel.onDataReload = {
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-
-        viewModel.query = "harry potter"
-        viewModel.searchNewQuery()
+        setUpViewModel()
+        setUpNavBar()
     }
 
     func setUpSearchBar() {
@@ -68,6 +61,27 @@ class BooksGridController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor)
         ])
     }
+
+    func setUpNavBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.navbarRightButtonText, style: .plain, target: viewModel, action: #selector(viewModel.toggleViewMode))
+    }
+
+    func setUpViewModel() {
+        viewModel.onDataReload = {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+        viewModel.onSingleRowReload = { indexPath in
+            self.collectionView.reloadItems(at: [indexPath])
+        }
+        viewModel.onViewModeChanged = {
+            self.navigationItem.rightBarButtonItem?.title = self.viewModel.navbarRightButtonText
+        }
+        viewModel.setUpNotifications()
+        viewModel.query = "harry potter"
+        viewModel.searchNewQuery()
+    }
 }
 
 extension BooksGridController: UISearchBarDelegate {
@@ -83,7 +97,7 @@ extension BooksGridController: UISearchBarDelegate {
 
 extension BooksGridController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: BookDetailsController.segueIdentifier, sender: indexPath)
+        //performSegue(withIdentifier: BookDetailsController.segueIdentifier, sender: indexPath)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
