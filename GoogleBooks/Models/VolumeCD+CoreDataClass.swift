@@ -3,14 +3,10 @@
 //  GoogleBooks
 //
 //  Created by Hugo Flores Perez on 4/12/20.
-//  Copyright © 2020 Hugo Flores Perez. All rights reserved.
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
-
-public class VolumeCD: NSManagedObject {
-
-}
+public class VolumeCD: NSManagedObject {}

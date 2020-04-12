@@ -3,15 +3,15 @@
 //  GoogleBooks
 //
 //  Created by Hugo Flores Perez on 4/12/20.
-//  Copyright © 2020 Hugo Flores Perez. All rights reserved.
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 extension VolumeCD {
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<VolumeCD> {
+    @nonobjc
+    public class func fetchRequest() -> NSFetchRequest<VolumeCD> {
         return NSFetchRequest<VolumeCD>(entityName: "VolumeCD")
     }
 
