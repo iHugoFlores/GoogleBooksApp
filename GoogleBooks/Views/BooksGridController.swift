@@ -35,6 +35,7 @@ class BooksGridController: UIViewController {
         setUpCollectionView()
         setUpViewModel()
         setUpNavBar()
+        checkIfCollectionViewHasItems()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -71,10 +72,30 @@ class BooksGridController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.navbarRightButtonText, style: .plain, target: viewModel, action: #selector(viewModel.toggleViewMode))
     }
 
+    func checkIfCollectionViewHasItems() {
+        if viewModel.volumes.isEmpty {
+            let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: view.bounds.size.width, height: self.view.bounds.size.height))
+            let messageLabel = UILabel(frame: rect)
+            messageLabel.text = viewModel.query.isEmpty
+                ? "Search for a book"
+                : "No Books Found"
+            messageLabel.textColor = .black
+            messageLabel.numberOfLines = 0
+            messageLabel.textAlignment = .center
+            messageLabel.font = UIFont(name: "TrebuchetMS", size: 18)
+            messageLabel.sizeToFit()
+
+            collectionView.backgroundView = messageLabel
+            return
+        }
+        collectionView.backgroundView = nil
+    }
+
     func setUpViewModel() {
         viewModel.onDataReload = {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+                self.checkIfCollectionViewHasItems()
             }
         }
         viewModel.onSingleRowReload = { indexPath in
@@ -82,10 +103,11 @@ class BooksGridController: UIViewController {
         }
         viewModel.onViewModeChanged = {
             self.navigationItem.rightBarButtonItem?.title = self.viewModel.navbarRightButtonText
+            self.searchBar.isHidden = !self.viewModel.showQueryBooks
         }
         viewModel.setUpNotifications()
-        viewModel.query = "harry potter"
-        viewModel.searchNewQuery()
+        //viewModel.query = "Flowertttg"
+        //viewModel.searchNewQuery()
     }
 }
 
