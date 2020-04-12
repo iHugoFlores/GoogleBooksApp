@@ -7,13 +7,22 @@
 
 import Foundation
 
-struct Volume: Codable {
+struct Volume: Codable, Hashable {
+    static func == (lhs: Volume, rhs: Volume) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
     let kind, id, etag: String
     let selfLink: String
     let volumeInfo: VolumeInfo
     let saleInfo: SaleInfo
     let accessInfo: AccessInfo
     let searchInfo: SearchInfo?
+    var favorited: Bool?
 }
 
 struct AccessInfo: Codable {
