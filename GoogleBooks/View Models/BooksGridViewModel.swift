@@ -30,13 +30,23 @@ class BooksGridViewModel: NSObject {
     }
 
     var lastPage = 0
+    var totalVolumes = 0
     var favorites = Set<Volume>()
     var onDataReload: (() -> Void)?
     var onViewModeChanged: (() -> Void)?
     var onSingleRowReload: ((IndexPath) -> Void)?
-    var query = ""
+    var query = "" {
+        didSet {
+            if query.isEmpty {
+                volumes = []
+            }
+        }
+    }
     var nextPageFetchLock = true
     var fetchNewDataLock = false
+    var canFetchNextPage: Bool {
+        return volumes.count < totalVolumes
+    }
 
     private weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
     private let context = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
@@ -58,10 +68,18 @@ class BooksGridViewModel: NSObject {
     func searchNewQuery() {
         fetchNewDataLock = true
         GoogleBooksAPI.getNextPageWithQuery(query: query, page: 0) { data, _  in
+            defer {
+                self.fetchNewDataLock = false
+                self.lastPage = 0
+            }
+            guard let totalVolumes = data?.totalItems else { return }
+            self.totalVolumes = totalVolumes
+            if totalVolumes == 0 {
+                self.volumes = []
+                return
+            }
             guard let volumes = data?.items else { return }
-            self.lastPage = 0
             self.volumes = volumes
-            self.fetchNewDataLock = false
         }
     }
 
@@ -106,6 +124,10 @@ class BooksGridViewModel: NSObject {
     func toggleViewMode() {
         showQueryBooks.toggle()
         if showQueryBooks {
+            if query.isEmpty {
+                volumes = []
+                return
+            }
             searchNewQuery()
             return
         }
@@ -123,7 +145,9 @@ extension BooksGridViewModel: UICollectionViewDataSource {
 
         volumes[indexPath.row].favorited = favorites.contains(volumes[indexPath.row])
         cell?.viewModel.model = volumes[indexPath.row]
-        reloadNextPageOnIndexPathThreshold(indexPath, threshold: volumes.count - 1)
+        if canFetchNextPage {
+            reloadNextPageOnIndexPathThreshold(indexPath, threshold: volumes.count - 1)
+        }
 
         return cell ?? UICollectionViewCell()
     }
