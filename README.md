@@ -18,11 +18,11 @@ Open the file `GoogleBooks.xcworkspace` on Xcode
 - [x] The user must be able to save his or her favorite books by double tapping a collection view cell – the favorites must also be shown in a grid.
 - [x] There must be a way to switch between “search mode” and “favorites mode”. 
 - [x] You can use third party and open source libraries (within reason).
-- [ ] Zip up the source and send it back to your trainer. Also, upload your code to Github (make an effort on the Readme file).
+- [x] Zip up the source and send it back to your trainer. Also, upload your code to Github (make an effort on the Readme file).
 - [x] The project must be simple to build. 
 - [ ] The project must run on our side.
 - [ ] The project should not crash. I shouldn’t get stuck somewhere (the flow should always work).
-- [ ] Unit test bundle and unit test UI are required (not 100% is required).
+- [x] Unit test bundle and unit test UI are required (not 100% is required).
 - [x] Use at least 2 CocoaPods.
 - [x] Use MVVM architecture design.
 - [x] Each book always shows the correct associated image. 
