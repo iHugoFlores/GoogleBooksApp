@@ -8,12 +8,15 @@
 import UIKit
 
 class BookCollectionCell: UICollectionViewCell {
+    static let favoriteABookNotificationId = Notification.Name("favoriteABook")
     static let identifier = "BookCell"
     static var preferredSize = CGSize(width: 158, height: 208)
     static var imageSize: CGFloat = 150
 
     let viewModel = BookCollectionCellViewModel()
-    var row: Int?
+    var collectionView: UICollectionView? {
+        return superview as? UICollectionView
+    }
 
     let bookImage: UIImageView = {
         let image = UIImageView()
@@ -47,12 +50,20 @@ class BookCollectionCell: UICollectionViewCell {
         return label
     }()
 
+    var favoriteIcon: UIImageView?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+        tap.numberOfTapsRequired = 2
+        self.addGestureRecognizer(tap)
+
         viewModel.onModelSet = {
             self.titleLabel.text = self.viewModel.model!.volumeInfo.title
             self.authorLabel.text = self.viewModel.model?.volumeInfo.authors?.joined(separator: ", ")
+            self.setUpFavoriteIcon()
         }
         viewModel.onImageSet = {
             self.bookImage.image = self.viewModel.image
@@ -61,6 +72,12 @@ class BookCollectionCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    @objc
+    func doubleTapped() {
+        let selfIndexPath = (collectionView?.indexPath(for: self))!
+        viewModel.onBookFavorited(indexPath: selfIndexPath)
     }
 
     func setUpView() {
@@ -84,5 +101,20 @@ class BookCollectionCell: UICollectionViewCell {
             authorLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             authorLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
         ])
+    }
+
+    func setUpFavoriteIcon() {
+        if viewModel.isFavorite() {
+            let icon = UIImageView(image: UIImage(systemName: "heart.circle")?.withRenderingMode(.alwaysTemplate))
+            icon.tintColor = .systemPink
+            icon.backgroundColor = .white
+            icon.layer.cornerRadius = 10
+            bookImage.addSubview(icon)
+            return
+        }
+
+        if !bookImage.subviews.isEmpty {
+            bookImage.subviews.forEach({ $0.removeFromSuperview() })
+        }
     }
 }
