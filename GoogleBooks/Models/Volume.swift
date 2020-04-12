@@ -16,11 +16,12 @@ struct Volume: Codable, Hashable {
         hasher.combine(id)
     }
 
-    let kind, id, etag: String
-    let selfLink: String
+    let id: String
+    let kind, etag: String?
+    let selfLink: String?
     let volumeInfo: VolumeInfo
-    let saleInfo: SaleInfo
-    let accessInfo: AccessInfo
+    let saleInfo: SaleInfo?
+    let accessInfo: AccessInfo?
     let searchInfo: SearchInfo?
     var favorited: Bool?
 }
@@ -53,16 +54,16 @@ struct VolumeInfo: Codable {
     let authors: [String]?
     let publisher, publishedDate, description: String?
     let industryIdentifiers: [IndustryIdentifier]?
-    let readingModes: ReadingModes
+    let readingModes: ReadingModes?
     let pageCount: Int?
-    let printType, maturityRating: String
-    let allowAnonLogging: Bool
-    let contentVersion: String
+    let printType, maturityRating: String?
+    let allowAnonLogging: Bool?
+    let contentVersion: String?
     let panelizationSummary: PanelizationSummary?
     let imageLinks: ImageLinks?
-    let language: String
-    let previewLink, infoLink: String
-    let canonicalVolumeLink: String
+    let language: String?
+    let previewLink, infoLink: String?
+    let canonicalVolumeLink: String?
     let subtitle: String?
     let categories: [String]?
 }
