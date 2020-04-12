@@ -5,15 +5,11 @@ Book searcher and reader iOS App using the Google Books API
 ## Build The Project
 
 1. Clone or download the project
-2. The project uses [CocoaPods]. Make sure you have it installed to install the dependencies.
-3. Inside the project, execute:
-```bash
-pods install
-```
+2. The project uses [CocoaPods]. The dependencies are embedded within the repository, so it's not neccessary to run `pods install`
 
 ## Run The Project
 
-After installing Pod dependencies, open the file `GoogleBooks.xcworkspace` on Xcode
+Open the file `GoogleBooks.xcworkspace` on Xcode
 
 ## Requirements
 
@@ -23,14 +19,14 @@ After installing Pod dependencies, open the file `GoogleBooks.xcworkspace` on Xc
 - [x] There must be a way to switch between “search mode” and “favorites mode”. 
 - [x] You can use third party and open source libraries (within reason).
 - [ ] Zip up the source and send it back to your trainer. Also, upload your code to Github (make an effort on the Readme file).
-- [ ] The project must be simple to build. 
+- [x] The project must be simple to build. 
 - [ ] The project must run on our side.
 - [ ] The project should not crash. I shouldn’t get stuck somewhere (the flow should always work).
 - [ ] Unit test bundle and unit test UI are required (not 100% is required).
 - [x] Use at least 2 CocoaPods.
 - [x] Use MVVM architecture design.
 - [x] Each book always shows the correct associated image. 
-- [ ] Utilize Core Data to persist favorited books
+- [x] Utilize Core Data to persist favorited books
 - One of the following (Bonus):
 	- [ ] Create a screen within the app to accredit the CocoaPods used.
 	- [x] Some indicator on both the search list and/or grid and the favorites section, indicating that a book is favorited.
