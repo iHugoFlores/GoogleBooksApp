@@ -23,6 +23,7 @@ class BookCollectionCell: UICollectionViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
+        image.isUserInteractionEnabled = true
         NSLayoutConstraint.activate([
             image.widthAnchor.constraint(equalToConstant: imageSize),
             image.heightAnchor.constraint(equalToConstant: imageSize)
@@ -50,16 +51,29 @@ class BookCollectionCell: UICollectionViewCell {
         return label
     }()
 
-    var favoriteIcon: UIImageView?
+    var favoriteImage: UIImageView = {
+        let image = UIImageView(image: UIImage(systemName: "heart.circle"))
+        image.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        return image
+    }()
+
+    let favoriteButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 25
+        button.tintColor = .lightGray
+        return button
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
-
+        /*
         let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
         tap.numberOfTapsRequired = 2
         self.addGestureRecognizer(tap)
-
+        */
         viewModel.onModelSet = {
             self.titleLabel.text = self.viewModel.model!.volumeInfo.title
             self.authorLabel.text = self.viewModel.model?.volumeInfo.authors?.joined(separator: ", ")
@@ -75,17 +89,23 @@ class BookCollectionCell: UICollectionViewCell {
     }
 
     @objc
-    func doubleTapped() {
+    func doubleTapped(sender: UIButton) {
+        if viewModel.isFavorite() {
+            return
+        }
         let selfIndexPath = (collectionView?.indexPath(for: self))!
         viewModel.onBookFavorited(indexPath: selfIndexPath)
     }
 
     func setUpView() {
+        favoriteButton.addSubview(favoriteImage)
+        favoriteButton.addTarget(self, action: #selector(doubleTapped(sender:)), for: .touchUpInside)
         let stackView = UIStackView(arrangedSubviews: [bookImage, titleLabel, authorLabel])
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.spacing = 2
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        bookImage.addSubview(favoriteButton)
         contentView.addSubview(stackView)
 
         layer.borderWidth = 1
@@ -105,16 +125,9 @@ class BookCollectionCell: UICollectionViewCell {
 
     func setUpFavoriteIcon() {
         if viewModel.isFavorite() {
-            let icon = UIImageView(image: UIImage(systemName: "heart.circle")?.withRenderingMode(.alwaysTemplate))
-            icon.tintColor = .systemPink
-            icon.backgroundColor = .white
-            icon.layer.cornerRadius = 10
-            bookImage.addSubview(icon)
+            favoriteButton.tintColor = .red
             return
         }
-
-        if !bookImage.subviews.isEmpty {
-            bookImage.subviews.forEach({ $0.removeFromSuperview() })
-        }
+        favoriteButton.tintColor = .lightGray
     }
 }
