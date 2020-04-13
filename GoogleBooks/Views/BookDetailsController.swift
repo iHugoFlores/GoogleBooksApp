@@ -36,7 +36,7 @@ class BookDetailsController: UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textColor = .black
-        lbl.font = UIFont.boldSystemFont(ofSize: 16)
+        lbl.font = UIFont.boldSystemFont(ofSize: 20)
         lbl.numberOfLines = 3
         return lbl
     }()
@@ -45,8 +45,17 @@ class BookDetailsController: UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textColor = .black
-        lbl.font = UIFont.systemFont(ofSize: 20)
-        lbl.numberOfLines = 1
+        lbl.font = UIFont.systemFont(ofSize: 12)
+        lbl.numberOfLines = 0
+        return lbl
+    }()
+
+    private let descriptionLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.textColor = .black
+        lbl.font = UIFont.systemFont(ofSize: 12)
+        lbl.numberOfLines = 0
         return lbl
     }()
 
@@ -56,6 +65,8 @@ class BookDetailsController: UIViewController {
         setUpMain()
 
         titleLabel.text = viewModel.model?.volumeInfo.title
+        authorLabel.text = viewModel.model?.volumeInfo.authors?.joined(separator: "\n")
+        descriptionLabel.text = viewModel.model?.volumeInfo.description
     }
 
     func setUpScrollView() {
@@ -68,12 +79,12 @@ class BookDetailsController: UIViewController {
                scrollView.topAnchor.constraint(equalTo: view.topAnchor),
                scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-               mainContainer.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
-               mainContainer.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+               mainContainer.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 16),
+               mainContainer.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -16),
                mainContainer.topAnchor.constraint(greaterThanOrEqualTo: scrollView.topAnchor, constant: 16),
                mainContainer.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -16.0),
 
-               mainContainer.widthAnchor.constraint(equalTo: view.widthAnchor)
+               mainContainer.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32)
            ])
        }
 
@@ -81,11 +92,12 @@ class BookDetailsController: UIViewController {
         mainContainer.addArrangedSubview(bookImage)
         mainContainer.addArrangedSubview(titleLabel)
         mainContainer.addArrangedSubview(authorLabel)
+        mainContainer.addArrangedSubview(descriptionLabel)
 
         NSLayoutConstraint.activate([
             bookImage.leftAnchor.constraint(equalTo: mainContainer.leftAnchor),
             bookImage.rightAnchor.constraint(equalTo: mainContainer.rightAnchor),
-            bookImage.heightAnchor.constraint(equalToConstant: view.frame.height / 4)
+            bookImage.heightAnchor.constraint(equalToConstant: view.frame.height / 3)
         ])
     }
 }
