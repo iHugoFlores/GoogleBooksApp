@@ -104,7 +104,6 @@ class BooksGridController: UIViewController {
         viewModel.onViewModeChanged = {
             self.navigationItem.rightBarButtonItem?.title = self.viewModel.navbarRightButtonText
             if self.viewModel.showQueryBooks {
-                print("Here")
                 self.setUpSearchBar()
                 self.collectionView.removeFromSuperview()
                 self.setUpCollectionView()
@@ -116,6 +115,8 @@ class BooksGridController: UIViewController {
             ])
         }
         viewModel.setUpNotifications()
+        //viewModel.query = "Harry Potter"
+        //viewModel.searchNewQuery()
     }
 }
 
@@ -132,7 +133,7 @@ extension BooksGridController: UISearchBarDelegate {
 
 extension BooksGridController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //performSegue(withIdentifier: BookDetailsController.segueIdentifier, sender: indexPath)
+        performSegue(withIdentifier: BookDetailsController.segueIdentifier, sender: indexPath)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
