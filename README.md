@@ -15,7 +15,7 @@ Open the file `GoogleBooks.xcworkspace` on Xcode
 
 - [x] Inputs. Give the user a search box to enter the book to be searched (tableView screen)
 - [x] Outputs. Make a visual grid of books with at least thumbnail, title, and author(s) displayed. Feel free to add addition meta data and information. 
-- [x] The user must be able to save his or her favorite books by double tapping a collection view cell – the favorites must also be shown in a grid.
+- [x] The user must be able to save his or her favorite books by double tapping a collection view cell – the favorites must also be shown in a grid. **Behaviour changed to favorite button**
 - [x] There must be a way to switch between “search mode” and “favorites mode”. 
 - [x] You can use third party and open source libraries (within reason).
 - [x] Zip up the source and send it back to your trainer. Also, upload your code to Github (make an effort on the Readme file).
@@ -32,7 +32,7 @@ Open the file `GoogleBooks.xcworkspace` on Xcode
 	- [x] Some indicator on both the search list and/or grid and the favorites section, indicating that a book is favorited.
 	- [x] Enable the user to search as they type into the search bar without pressing any search button.
 	- [x] Ensure that each book always has the correct image associated to it.
-	- [ ] Enable pagination.
-	- [ ] Some other non-trivial feature.
+	- [x] Enable pagination.
+	- [x] Some other non-trivial feature.
 
 [CocoaPods]: https://cocoapods.org/
