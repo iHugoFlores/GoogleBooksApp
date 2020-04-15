@@ -59,6 +59,14 @@ class BookDetailsController: UIViewController {
         return lbl
     }()
 
+    private let openPDFButton: UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = .systemBlue
+        btn.setTitle("View PDF", for: .normal)
+        btn.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        return btn
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpScrollView()
@@ -77,7 +85,7 @@ class BookDetailsController: UIViewController {
                scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
                scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
                scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-               scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+               scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16),
 
                mainContainer.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 16),
                mainContainer.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -16),
@@ -93,11 +101,20 @@ class BookDetailsController: UIViewController {
         mainContainer.addArrangedSubview(titleLabel)
         mainContainer.addArrangedSubview(authorLabel)
         mainContainer.addArrangedSubview(descriptionLabel)
+        mainContainer.addArrangedSubview(openPDFButton)
 
         NSLayoutConstraint.activate([
             bookImage.leftAnchor.constraint(equalTo: mainContainer.leftAnchor),
             bookImage.rightAnchor.constraint(equalTo: mainContainer.rightAnchor),
             bookImage.heightAnchor.constraint(equalToConstant: view.frame.height / 3)
         ])
+    }
+
+    @objc
+    func buttonAction(sender: UIButton!) {
+        performSegue(withIdentifier: PaginatedViewController.segueIdentifier, sender: self)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
 }

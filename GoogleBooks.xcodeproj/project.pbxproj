@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8BAC644A05D44A6198EFEE2B /* Pods_GoogleBooks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC2B30F4CB7DB7F2FD6D6AE /* Pods_GoogleBooks.framework */; };
+		F043824F24479C8E004B10EC /* placeholder.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F043824E24479C8D004B10EC /* placeholder.pdf */; };
+		F043825124479E2E004B10EC /* PaginatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F043825024479E2E004B10EC /* PaginatedViewController.swift */; };
+		F043825324479E5A004B10EC /* PageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F043825224479E5A004B10EC /* PageContentViewController.swift */; };
 		F061879A24433BC400E1A819 /* GoogleBooks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F061879824433BC400E1A819 /* GoogleBooks.xcdatamodeld */; };
 		F06187A12443419800E1A819 /* VolumeCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061879F2443419800E1A819 /* VolumeCD+CoreDataClass.swift */; };
 		F06187A22443419800E1A819 /* VolumeCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06187A02443419800E1A819 /* VolumeCD+CoreDataProperties.swift */; };
@@ -51,6 +54,9 @@
 /* Begin PBXFileReference section */
 		53E9F75375B1663EF9731F5F /* Pods-GoogleBooks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoogleBooks.release.xcconfig"; path = "Target Support Files/Pods-GoogleBooks/Pods-GoogleBooks.release.xcconfig"; sourceTree = "<group>"; };
 		7EC2B30F4CB7DB7F2FD6D6AE /* Pods_GoogleBooks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoogleBooks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F043824E24479C8D004B10EC /* placeholder.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = placeholder.pdf; sourceTree = "<group>"; };
+		F043825024479E2E004B10EC /* PaginatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedViewController.swift; sourceTree = "<group>"; };
+		F043825224479E5A004B10EC /* PageContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageContentViewController.swift; sourceTree = "<group>"; };
 		F061879924433BC400E1A819 /* GoogleBooks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoogleBooks.xcdatamodel; sourceTree = "<group>"; };
 		F061879F2443419800E1A819 /* VolumeCD+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VolumeCD+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F06187A02443419800E1A819 /* VolumeCD+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VolumeCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -174,6 +180,7 @@
 		F0874A0E2440DBC60013670D /* GoogleBooks */ = {
 			isa = PBXGroup;
 			children = (
+				F043824E24479C8D004B10EC /* placeholder.pdf */,
 				F0A059F824412C9800AFC11F /* Utils */,
 				F0AA5C202440E8C400E35463 /* Views */,
 				F0AA5C1E2440E73400E35463 /* Storyboards */,
@@ -250,6 +257,8 @@
 				F0A059FD24413F3A00AFC11F /* Utils */,
 				F0A059F0244125C000AFC11F /* BooksGridController.swift */,
 				F0A059F22441263E00AFC11F /* BookDetailsController.swift */,
+				F043825024479E2E004B10EC /* PaginatedViewController.swift */,
+				F043825224479E5A004B10EC /* PageContentViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -386,6 +395,7 @@
 			files = (
 				F0874A1C2440DBC80013670D /* LaunchScreen.storyboard in Resources */,
 				F0874A192440DBC80013670D /* Assets.xcassets in Resources */,
+				F043824F24479C8E004B10EC /* placeholder.pdf in Resources */,
 				F0874A172440DBC60013670D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -479,8 +489,10 @@
 				F0A059F724412C4C00AFC11F /* BookDetailsViewModel.swift in Sources */,
 				F0A059F32441263E00AFC11F /* BookDetailsController.swift in Sources */,
 				F061879A24433BC400E1A819 /* GoogleBooks.xcdatamodeld in Sources */,
+				F043825124479E2E004B10EC /* PaginatedViewController.swift in Sources */,
 				F0AA5C222440E8F500E35463 /* GoogleBooksAPI.swift in Sources */,
 				F0874A102440DBC60013670D /* AppDelegate.swift in Sources */,
+				F043825324479E5A004B10EC /* PageContentViewController.swift in Sources */,
 				F0874A122440DBC60013670D /* SceneDelegate.swift in Sources */,
 				F0A059FF24413F6900AFC11F /* SpinnerView.swift in Sources */,
 				F0A059FC244138B900AFC11F /* VolumesQueryResponse.swift in Sources */,
