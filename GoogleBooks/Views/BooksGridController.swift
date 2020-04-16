@@ -123,6 +123,12 @@ class BooksGridController: UIViewController {
 extension BooksGridController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.query = searchText
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(performSearch), object: nil)
+        perform(#selector(performSearch), with: nil, afterDelay: 0.2)
+    }
+
+    @objc
+    func performSearch() {
         viewModel.searchNewQuery()
     }
 
