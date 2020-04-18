@@ -20,4 +20,5 @@ extension VolumeCD {
     @NSManaged public var title: String?
     @NSManaged public var authors: NSObject?
     @NSManaged public var thumbnail: String?
+    @NSManaged public var bookDescription: String?
 }
