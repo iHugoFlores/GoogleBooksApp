@@ -8,6 +8,8 @@
 import UIKit
 
 class BookCollectionCell: UICollectionViewCell {
+    // MARK: Properties
+
     static let favoriteABookNotificationId = Notification.Name("favoriteABook")
     static let identifier = "BookCell"
     static var preferredSize = CGSize(width: 158, height: 208)
@@ -18,6 +20,7 @@ class BookCollectionCell: UICollectionViewCell {
         return superview as? UICollectionView
     }
 
+    // MARK: UI Components
     let bookImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +69,7 @@ class BookCollectionCell: UICollectionViewCell {
         return button
     }()
 
+    // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
@@ -88,6 +92,7 @@ class BookCollectionCell: UICollectionViewCell {
         super.init(coder: coder)
     }
 
+    // MARK: On Favorite Button Tap
     @objc
     func doubleTapped(sender: UIButton) {
         if viewModel.isFavorite() {
@@ -97,6 +102,7 @@ class BookCollectionCell: UICollectionViewCell {
         viewModel.onBookFavorited(indexPath: selfIndexPath)
     }
 
+    // MARK: View's constraints setup
     func setUpView() {
         favoriteButton.addSubview(favoriteImage)
         favoriteButton.addTarget(self, action: #selector(doubleTapped(sender:)), for: .touchUpInside)
@@ -123,6 +129,7 @@ class BookCollectionCell: UICollectionViewCell {
         ])
     }
 
+    // MARK: Favorite Button component handler
     func setUpFavoriteIcon() {
         if viewModel.isFavorite() {
             favoriteButton.tintColor = .red

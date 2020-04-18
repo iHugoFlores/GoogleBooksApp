@@ -10,10 +10,11 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    // MARK: Core Data Boilerplate Code
     lazy var persistentContainer: NSPersistentContainer = {
       let container = NSPersistentContainer(name: "GoogleBooks")
       container.loadPersistentStores(completionHandler: { storeDescription, error in
-          print(storeDescription)
+          //print(storeDescription)
           if let error = error as NSError? {
             fatalError("Unresolved error \(error), \(error.userInfo)")
           }

@@ -8,6 +8,11 @@
 import UIKit
 
 class BooksGridController: UIViewController {
+    // MARK: Properties
+
+    let viewModel = BooksGridViewModel()
+
+    // MARK: UI Components
     let searchBar: UISearchBar = {
         let srchBr = UISearchBar()
         srchBr.sizeToFit()
@@ -24,10 +29,9 @@ class BooksGridController: UIViewController {
         return collVw
     }()
 
-    let viewModel = BooksGridViewModel()
-
     let spinnerView = SpinnerView()
 
+    // MARK: Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "My Books App"
@@ -43,6 +47,7 @@ class BooksGridController: UIViewController {
         viewModel.retrieveFavorites()
     }
 
+    // MARK: Searchbar constraints setup
     func setUpSearchBar() {
         searchBar.delegate = self
 
@@ -54,6 +59,7 @@ class BooksGridController: UIViewController {
         ])
     }
 
+    // MARK: Collection View constraints setup
     func setUpCollectionView() {
         collectionView.dataSource = viewModel
         collectionView.delegate = self
@@ -68,10 +74,12 @@ class BooksGridController: UIViewController {
         ])
     }
 
+    // MARK: Navigation Bar setup
     func setUpNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.navbarRightButtonText, style: .plain, target: viewModel, action: #selector(viewModel.toggleViewMode))
     }
 
+    // MARK: Empty List handler
     func checkIfCollectionViewHasItems() {
         if viewModel.volumes.isEmpty {
             let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: view.bounds.size.width, height: self.view.bounds.size.height))
@@ -91,6 +99,7 @@ class BooksGridController: UIViewController {
         collectionView.backgroundView = nil
     }
 
+    // MARK: View model listener methods setup
     func setUpViewModel() {
         viewModel.onDataReload = {
             DispatchQueue.main.async {
@@ -120,6 +129,7 @@ class BooksGridController: UIViewController {
     }
 }
 
+// MARK: Search Bar Delegate Handler
 extension BooksGridController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.query = searchText
@@ -137,6 +147,7 @@ extension BooksGridController: UISearchBarDelegate {
     }
 }
 
+// MARK: Collection View Delegate Handler
 extension BooksGridController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: BookDetailsController.segueIdentifier, sender: indexPath)
@@ -153,6 +164,7 @@ extension BooksGridController: UICollectionViewDelegate {
     }
 }
 
+// MARK: Collection View Flow Layout Delegate Handler
 extension BooksGridController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

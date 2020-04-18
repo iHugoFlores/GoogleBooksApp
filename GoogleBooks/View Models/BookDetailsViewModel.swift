@@ -8,6 +8,7 @@
 import Foundation
 
 class BookDetailsViewModel {
+    // MARK: Parameters
     var model: Volume? {
         didSet {
             guard let onModelSet = onModelSet else { return }

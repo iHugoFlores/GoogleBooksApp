@@ -8,6 +8,7 @@
 import UIKit
 
 class BooksGridViewModel: NSObject {
+    // MARK: Parameters
     var volumes: [Volume] = [] {
         didSet {
             if oldValue.count == volumes.count && !fetchNewDataLock {
@@ -48,9 +49,11 @@ class BooksGridViewModel: NSObject {
         return volumes.count < totalVolumes
     }
 
+    // MARK: Core Data context
     private weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
     private let context = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
 
+     // MARK: Set store data
     func retrieveFavorites() {
         do {
             let stored: [VolumeCD] = try context.fetch(VolumeCD.fetchRequest())
@@ -58,14 +61,20 @@ class BooksGridViewModel: NSObject {
                 let imageLinks = element.thumbnail != nil
                     ? ImageLinks(smallThumbnail: element.thumbnail!, thumbnail: element.thumbnail!)
                     : nil
-                return Volume(id: element.id!, kind: nil, etag: nil, selfLink: nil, volumeInfo: VolumeInfo(title: element.title!, authors: element.authors as? [String], publisher: nil, publishedDate: nil, description: nil, industryIdentifiers: nil, readingModes: nil, pageCount: nil, printType: nil, maturityRating: nil, allowAnonLogging: nil, contentVersion: nil, panelizationSummary: nil, imageLinks: imageLinks, language: nil, previewLink: nil, infoLink: nil, canonicalVolumeLink: nil, subtitle: nil, categories: nil), saleInfo: nil, accessInfo: nil, searchInfo: nil, favorited: element.favorited)
+                let volumeInfo = VolumeInfo(title: element.title!, authors: element.authors as? [String], publisher: nil, publishedDate: nil, description: element.bookDescription, industryIdentifiers: nil, readingModes: nil, pageCount: nil, printType: nil, maturityRating: nil, allowAnonLogging: nil, contentVersion: nil, panelizationSummary: nil, imageLinks: imageLinks, language: nil, previewLink: nil, infoLink: nil, canonicalVolumeLink: nil, subtitle: nil, categories: nil)
+                return Volume(id: element.id!, kind: nil, etag: nil, selfLink: nil, volumeInfo: volumeInfo, saleInfo: nil, accessInfo: nil, searchInfo: nil, favorited: element.favorited)
             })
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
 
+     // MARK: Execute a new query
     func searchNewQuery() {
+        if query.isEmpty {
+            volumes = []
+            return
+        }
         fetchNewDataLock = true
         GoogleBooksAPI.getNextPageWithQuery(query: query, page: 0) { data, _  in
             defer {
@@ -83,6 +92,7 @@ class BooksGridViewModel: NSObject {
         }
     }
 
+     // MARK: Fetch next page of data
     func fetchNextPage() {
         GoogleBooksAPI.getNextPageWithQuery(query: query, page: lastPage) { data, _  in
             guard let volumes = data?.items else { return }
@@ -91,6 +101,7 @@ class BooksGridViewModel: NSObject {
         }
     }
 
+     // MARK: Threshold for next page fetch
     func reloadNextPageOnIndexPathThreshold(_ indexPath: IndexPath, threshold: Int) {
         if indexPath.row >= threshold && nextPageFetchLock && showQueryBooks {
             nextPageFetchLock = false
@@ -99,6 +110,7 @@ class BooksGridViewModel: NSObject {
         }
     }
 
+    // MARK: Favorite book notification method
     func setUpNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(onBookFavorited(_:)), name: BookCollectionCell.favoriteABookNotificationId, object: nil)
     }
@@ -116,18 +128,17 @@ class BooksGridViewModel: NSObject {
         book.authors = volumes[indexPath.row].volumeInfo.authors as NSObject?
         book.favorited = true
         book.title = volumes[indexPath.row].volumeInfo.title
+        book.bookDescription = volumes[indexPath.row].volumeInfo.description
         book.thumbnail = volumes[indexPath.row].volumeInfo.imageLinks?.thumbnail
         appDelegate!.saveContext()
     }
 
+    // MARK: View mode method
     @objc
     func toggleViewMode() {
         showQueryBooks.toggle()
         if showQueryBooks {
-            if query.isEmpty {
-                volumes = []
-                return
-            }
+            volumes = []
             searchNewQuery()
             return
         }
@@ -135,6 +146,7 @@ class BooksGridViewModel: NSObject {
     }
 }
 
+// MARK: Collection View Delegation
 extension BooksGridViewModel: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return volumes.count

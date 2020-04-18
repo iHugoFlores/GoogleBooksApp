@@ -8,9 +8,11 @@
 import UIKit
 
 class BookDetailsController: UIViewController {
+    // MARK: Properties
     static let segueIdentifier: String = "toBookDetails"
     let viewModel = BookDetailsViewModel()
 
+    // MARK: UI Components
     private let scrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +69,7 @@ class BookDetailsController: UIViewController {
         return btn
     }()
 
+    // MARK: Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpScrollView()
@@ -77,25 +80,27 @@ class BookDetailsController: UIViewController {
         descriptionLabel.text = viewModel.model?.volumeInfo.description
     }
 
+    // MARK: Scrollview constraints setup
     func setUpScrollView() {
-           view.addSubview(scrollView)
-           scrollView.addSubview(mainContainer)
+        view.addSubview(scrollView)
+        scrollView.addSubview(mainContainer)
 
-           NSLayoutConstraint.activate([
-               scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
-               scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-               scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-               scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16),
+        NSLayoutConstraint.activate([
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16),
 
-               mainContainer.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 16),
-               mainContainer.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -16),
-               mainContainer.topAnchor.constraint(greaterThanOrEqualTo: scrollView.topAnchor, constant: 16),
-               mainContainer.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -16.0),
+            mainContainer.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 16),
+            mainContainer.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -16),
+            mainContainer.topAnchor.constraint(greaterThanOrEqualTo: scrollView.topAnchor, constant: 16),
+            mainContainer.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -16.0),
 
-               mainContainer.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32)
-           ])
-       }
+            mainContainer.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32)
+        ])
+    }
 
+    // MARK: Main constraints setup
     func setUpMain() {
         mainContainer.addArrangedSubview(bookImage)
         mainContainer.addArrangedSubview(titleLabel)
@@ -110,11 +115,9 @@ class BookDetailsController: UIViewController {
         ])
     }
 
+    // MARK: View PDF Button press handler
     @objc
     func buttonAction(sender: UIButton!) {
         performSegue(withIdentifier: PaginatedViewController.segueIdentifier, sender: self)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
 }

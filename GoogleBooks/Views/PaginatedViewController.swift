@@ -9,10 +9,11 @@ import PDFKit
 import UIKit
 
 class PaginatedViewController: UIPageViewController {
+    // MARK: Properties
     static let segueIdentifier = "toPDFView"
-
     var loadedPDF: PDFDocument?
 
+    // MARK: Life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
@@ -25,6 +26,7 @@ class PaginatedViewController: UIPageViewController {
         }
     }
 
+    // MARK: Return View Controller at index
     func getViewControllerAtIndex(index: Int) -> PageContentViewController {
         guard let pageController = storyboard?.instantiateViewController(identifier: PageContentViewController.storyboardIdentifier) as? PageContentViewController else { return PageContentViewController() }
         let page = PDFDocument()
@@ -36,6 +38,7 @@ class PaginatedViewController: UIPageViewController {
     }
 }
 
+// MARK: Page View Controller Delegate Handler
 extension PaginatedViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let pageContent = viewController as? PageContentViewController else { return nil }

@@ -8,6 +8,7 @@
 import Alamofire
 
 class GoogleBooksAPI {
+    // MARK: Properties
     private enum GoogleBooksAPIError: Error {
         case JSONParse
     }
@@ -25,6 +26,7 @@ class GoogleBooksAPI {
         return urlC.url!
     }()
 
+    // MARK: URL Query Params Builder
     private static func getQueryItemsForQueryAndPage(query: String, page: Int) -> [URLQueryItem] {
         return [
             URLQueryItem(name: "q", value: query),
@@ -34,10 +36,11 @@ class GoogleBooksAPI {
         ]
     }
 
+    // MARK: Fetch Page Method
     static func getNextPageWithQuery(query: String, page: Int, onDone: @escaping ServiceResponse) {
         var urlC = URLComponents(url: endpoint, resolvingAgainstBaseURL: true)
         urlC?.queryItems = getQueryItemsForQueryAndPage(query: query, page: page * pageSize)
-        print(urlC?.url)
+        //print(urlC?.url)
         AF.request(urlC!.url!).validate(statusCode: 200..<300).responseData { response in
             switch response.result {
             case let .success(data):
@@ -52,6 +55,7 @@ class GoogleBooksAPI {
         }
     }
 
+    // MARK: Fetch image data
     static func downloadVolumeThumbnail(url: String, onDone: @escaping ServiceDataResponse) {
         AF.request(url).validate(statusCode: 200..<300).responseData { response in
             switch response.result {
