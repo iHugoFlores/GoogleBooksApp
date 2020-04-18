@@ -85,7 +85,7 @@ class BooksGridController: UIViewController {
             let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: view.bounds.size.width, height: self.view.bounds.size.height))
             let messageLabel = UILabel(frame: rect)
             messageLabel.text = viewModel.query.isEmpty
-                ? "Search for a book"
+                ? "Search for a book using Google Books API\n\nMark your favorite books, see your favorite books, download available books and read them!"
                 : "No Books Found"
             messageLabel.textColor = .black
             messageLabel.numberOfLines = 0
